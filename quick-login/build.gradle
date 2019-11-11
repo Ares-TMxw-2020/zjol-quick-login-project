@@ -24,7 +24,9 @@ android {
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation 'com.android.support:appcompat-v7:28.0.0'
-    
+    implementation 'com.aliya:permission:0.5.1'
+    api 'cn.com.zjol:biz-core:1.0.3.0'
+
     implementation 'com.google.code.gson:gson:2.8.5'
     implementation 'com.squareup.okhttp3:okhttp:3.3.1'
 
