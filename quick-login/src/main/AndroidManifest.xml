@@ -1,2 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="cn.com.zjol.quick_login" />
+    package="cn.com.zjol.quick_login">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+</manifest>
