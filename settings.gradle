@@ -1,0 +1,2 @@
+include ':app', ':quick-login'
+rootProject.name='zjol-quick-login-project'
