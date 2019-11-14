@@ -4,14 +4,23 @@ import android.content.Context;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.os.Handler;
-import android.widget.Toast;
+import android.os.Looper;
 
 import com.netease.nis.quicklogin.QuickLogin;
+import com.netease.nis.quicklogin.helper.CMLoginUiConfig;
+import com.netease.nis.quicklogin.helper.CULoginUiConfig;
 import com.netease.nis.quicklogin.listener.QuickLoginPreMobileListener;
 import com.netease.nis.quicklogin.listener.QuickLoginTokenListener;
+import com.netease.nis.quicklogin.utils.IConstants;
+import com.zjrb.passport.Entity.AuthInfo;
+import com.zjrb.passport.ZbPassport;
+import com.zjrb.passport.listener.ZbAuthListener;
 
 import java.lang.ref.SoftReference;
 
+import cn.com.zjol.biz.core.model.ZBLoginBean;
+import cn.com.zjol.biz.core.network.compatible.APICallBack;
+import cn.com.zjol.biz.core.network.task.LoginValidateTask;
 import cn.com.zjol.quick_login.callback.OnLoginCallback;
 import cn.com.zjol.quick_login.callback.OnPrefetchNumberCallback;
 
@@ -35,7 +44,7 @@ public final class OneClickLogin {
     public static void init(Context context, String businessId) {
         mContext = context.getApplicationContext();
         mBusinessId = businessId;
-        mHandler = new Handler();
+        mHandler = new Handler(Looper.getMainLooper());
     }
 
     /**
@@ -68,6 +77,16 @@ public final class OneClickLogin {
     }
 
     /**
+     * get the operator type
+     *
+     * @return operator type
+     * @see com.netease.nis.quicklogin.utils.IConstants.OperatorType
+     */
+    public static IConstants.OperatorType operatorType() {
+        return instance().getOperatorType(mContext);
+    }
+
+    /**
      * 对于移动和联通而言因必须使用运营商界面，onGetMobileNumberSuccess回调中mobileNumber形参值为null，
      * 无需关心该值内容，直接在该回调中调用取号接口onePass即可展示一键登录界面并自动显示掩码mobileNumber
      *
@@ -75,6 +94,8 @@ public final class OneClickLogin {
      */
     public static void prefetchMobileNumber(final OnPrefetchNumberCallback callback) {
         QuickLogin instance = instance();
+        instance.setCMLoginUiConfig(createCMLoginUI());
+        instance.setCULoginUiConfig(createCULoginUI());
         instance.setDebugMode(isDebuggable());
         instance.prefetchMobileNumber(new QuickLoginPreMobileListener() {
             @Override
@@ -130,8 +151,69 @@ public final class OneClickLogin {
         });
     }
 
+    /**
+     * validate token
+     *
+     * @param token      yidun token
+     * @param accessCode yidun access code
+     */
     private static void tokenValidate(String token, String accessCode) {
-        Toast.makeText(mContext, "与服务端检验token", Toast.LENGTH_SHORT).show();
+        ZbPassport.loginYiDun(token, accessCode, new ZbAuthListener() {
+            @Override
+            public void onSuccess(AuthInfo info) {
+                if (info == null) {
+                    if (mOnLoginCallback != null) {
+                        mOnLoginCallback.onError("AuthInfo null");
+                    }
+                    return;
+                }
+                String code = info.getCode();
+                new LoginValidateTask(new APICallBack<ZBLoginBean>() {
+                    @Override
+                    public void onSuccess(ZBLoginBean data) {
+                        if (mOnLoginCallback != null) {
+                            mOnLoginCallback.onSuccess();
+                        }
+                    }
+
+                    @Override
+                    public void onError(String errMsg, int errCode) {
+                        if (mOnLoginCallback != null) {
+                            mOnLoginCallback.onError(errMsg);
+                        }
+                    }
+                }).exe(code, code, "one_click", code);
+            }
+
+            @Override
+            public void onFailure(int errorCode, String errorMessage) {
+                if (mOnLoginCallback != null) {
+                    mOnLoginCallback.onError(errorMessage);
+                }
+            }
+        });
+    }
+
+    /**
+     * create china mobile custom login ui
+     * the default value for Integer Parameter is 0 and null for String Parameter if you do not want to modify specific parameter.
+     *
+     * @return custom login ui
+     */
+    private static CMLoginUiConfig createCMLoginUI() {
+        return new CMLoginUiConfig()
+                .setClauseText("登录即同意", "天目新闻隐私政策", "https://www.jianshu.com/p/8b89546d2c48", null, null, "并使用本机号码登录")
+                ;
+    }
+
+    /**
+     * create china unicom custom login ui
+     * the default value for Integer Parameter is 0 and null for String Parameter if you do not want to modify specific parameter.
+     *
+     * @return custom login ui
+     */
+    private static CULoginUiConfig createCULoginUI() {
+        return new CULoginUiConfig();
     }
 
     private static void runOnUiThread(Runnable runnable) {

@@ -3,17 +3,33 @@ apply plugin: 'com.android.application'
 android {
     compileSdkVersion 28
     defaultConfig {
-        applicationId "cn.com.zjol.quick_login"
+        applicationId "cn.com.zjol"
         minSdkVersion 21
         targetSdkVersion 28
         versionCode 1
         versionName "1.0"
         multiDexEnabled true
     }
+    signingConfigs {
+        zjol {
+            storeFile file("sign.keystore")
+            storePassword "zjol123456"
+            keyAlias "zjol"
+            keyPassword "zjol123456"
+            v2SigningEnabled true
+        }
+    }
     buildTypes {
+        debug {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.zjol
+        }
+
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.zjol
         }
     }
 }

@@ -6,6 +6,8 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.netease.nis.quicklogin.utils.IConstants;
+
 import cn.com.zjol.quick_login.callback.OnLoginCallback;
 import cn.com.zjol.quick_login.callback.OnPrefetchNumberCallback;
 
@@ -17,6 +19,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
         initView();
         prefetch();
     }
@@ -27,6 +30,20 @@ public class MainActivity extends AppCompatActivity {
             public void onSuccess(String token, String mobileNumber) {
                 mPrefetchSuccess = true;
                 mTextView.setText(mobileNumber);
+
+                IConstants.OperatorType operatorType = OneClickLogin.operatorType();
+                switch (operatorType) {
+                    case TYPE_CM:
+                    case TYPE_CU:
+                        onePass();
+                        break;
+                    case TYPE_CT:
+                        //进入电信自定义授权页
+                        Toast.makeText(MainActivity.this, "进入电信自定义授权页", Toast.LENGTH_SHORT).show();
+                        break;
+                    default:
+                        break;
+                }
             }
 
             @Override
@@ -38,7 +55,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void initView() {
-        setContentView(R.layout.activity_main);
         mTextView = findViewById(R.id.text);
     }
 
@@ -47,10 +63,14 @@ public class MainActivity extends AppCompatActivity {
             Toast.makeText(this, "预取手机号失败", Toast.LENGTH_SHORT).show();
             return;
         }
+        onePass();
+    }
+
+    private void onePass() {
         OneClickLogin.login(new OnLoginCallback() {
             @Override
             public void onSuccess() {
-
+                mTextView.setText("通行证检验成功");
             }
 
             @Override
