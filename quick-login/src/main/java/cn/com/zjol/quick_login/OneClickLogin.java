@@ -7,8 +7,6 @@ import android.os.Handler;
 import android.os.Looper;
 
 import com.netease.nis.quicklogin.QuickLogin;
-import com.netease.nis.quicklogin.helper.CMLoginUiConfig;
-import com.netease.nis.quicklogin.helper.CULoginUiConfig;
 import com.netease.nis.quicklogin.listener.QuickLoginPreMobileListener;
 import com.netease.nis.quicklogin.listener.QuickLoginTokenListener;
 import com.netease.nis.quicklogin.utils.IConstants;
@@ -29,7 +27,7 @@ import cn.com.zjol.biz.core.utils.RouteManager;
 import cn.com.zjol.biz.core.utils.ZBUtils;
 import cn.com.zjol.quick_login.callback.OnLoginCallback;
 import cn.com.zjol.quick_login.callback.OnPrefetchNumberCallback;
-import cn.com.zjol.quick_login.network.APIManager;
+import cn.com.zjol.quick_login.config.UIConfig;
 
 /**
  * one click login
@@ -101,8 +99,8 @@ public final class OneClickLogin {
      */
     public static void prefetchMobileNumber(final OnPrefetchNumberCallback callback) {
         QuickLogin instance = instance();
-        instance.setCMLoginUiConfig(createCMLoginUI());
-        instance.setCULoginUiConfig(createCULoginUI());
+        instance.setCMLoginUiConfig(UIConfig.createCMLoginUI());
+        instance.setCULoginUiConfig(UIConfig.createCULoginUI());
         instance.setDebugMode(isDebuggable());
         instance.prefetchMobileNumber(new QuickLoginPreMobileListener() {
             @Override
@@ -215,28 +213,6 @@ public final class OneClickLogin {
                 }
             }
         });
-    }
-
-    /**
-     * create china mobile custom login ui
-     * the default value for Integer Parameter is 0 and null for String Parameter if you do not want to modify specific parameter.
-     *
-     * @return custom login ui
-     */
-    private static CMLoginUiConfig createCMLoginUI() {
-        return new CMLoginUiConfig()
-                .setClauseText("登录即同意", "天目新闻用户协议", APIManager.getTianmuAgreementUrl(), null, null, null)
-                ;
-    }
-
-    /**
-     * create china unicom custom login ui
-     * the default value for Integer Parameter is 0 and null for String Parameter if you do not want to modify specific parameter.
-     *
-     * @return custom login ui
-     */
-    private static CULoginUiConfig createCULoginUI() {
-        return new CULoginUiConfig();
     }
 
     private static void runOnUiThread(Runnable runnable) {
