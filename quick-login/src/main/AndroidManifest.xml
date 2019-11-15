@@ -1,5 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="cn.com.zjol.quick_login">
 
     <uses-permission android:name="android.permission.INTERNET" />
+
+    <application>
+        <activity android:name=".activity.TelecomAuthActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data android:scheme="@string/data_scheme" />
+                <data android:scheme="@string/data_scheme_https" />
+                <data android:host="@string/default_host" />
+                <data android:host="@string/env_dev" />
+                <data android:host="@string/env_test" />
+                <data android:host="@string/env_beta" />
+                <data android:host="@string/env_online" />
+                <data android:host="@string/env_tm" />
+                <data android:path="/login/auth/telecom" />
+            </intent-filter>
+        </activity>
+    </application>
+
 </manifest>

@@ -7,5 +7,5 @@ package cn.com.zjol.quick_login.callback;
 public interface OnLoginCallback {
     void onSuccess();
 
-    void onError(String error);
+    void onError(int errorCode, String error);
 }

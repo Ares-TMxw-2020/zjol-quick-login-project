@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activity.TelecomAuthActivity">
+
+    <TextView
+        android:id="@+id/tv_mask_number"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/din_medium"
+        android:textColor="@color/_222222"
+        android:textSize="@dimen/ts_18sp"
+        app:layout_constraintBottom_toTopOf="@+id/tv_tianyi_service"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.3"
+        app:layout_constraintVertical_chainStyle="packed"
+        tools:text="138****9362" />
+
+    <TextView
+        android:id="@+id/tv_tianyi_service"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="44dp"
+        android:drawableStart="@mipmap/ic_login_tianyi_logo"
+        android:drawablePadding="5dp"
+        android:text="@string/quick_auth_tianyi_service"
+        app:layout_constraintBottom_toTopOf="@id/btn_telecom_login"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_mask_number" />
+
+    <Button
+        android:id="@+id/btn_telecom_login"
+        android:layout_width="315dp"
+        android:layout_height="44dp"
+        android:layout_marginTop="30dp"
+        android:background="@drawable/user_btn_common"
+        android:onClick="onClick"
+        android:text="@string/quick_auth_login"
+        android:textColor="@color/white"
+        android:textSize="@dimen/ts_16sp"
+        app:layout_constraintBottom_toTopOf="@+id/tv_switch_account"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_tianyi_service" />
+
+    <TextView
+        android:id="@+id/tv_switch_account"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="56dp"
+        android:onClick="onClick"
+        android:text="@string/quick_auth_switch_account"
+        android:textColor="@color/color_40a8c0"
+        android:textSize="@dimen/ts_16sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btn_telecom_login" />
+
+
+    <TextView
+        android:id="@+id/tv_agreement"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="18dp"
+        android:textColor="@color/_666666"
+        android:textSize="@dimen/ts_12sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:text="登录即同意天翼账号服务协议与天目新闻用户协议" />
+
+</android.support.constraint.ConstraintLayout>

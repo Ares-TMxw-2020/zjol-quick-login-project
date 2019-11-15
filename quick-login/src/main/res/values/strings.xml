@@ -1,3 +1,6 @@
 <resources>
     <string name="app_name">quick-login</string>
+    <string name="quick_auth_tianyi_service">天翼账号提供认证服务</string>
+    <string name="quick_auth_login">本机号码登录</string>
+    <string name="quick_auth_switch_account">切换账号</string>
 </resources>

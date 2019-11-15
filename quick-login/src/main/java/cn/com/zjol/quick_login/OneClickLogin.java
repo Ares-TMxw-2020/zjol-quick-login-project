@@ -12,17 +12,24 @@ import com.netease.nis.quicklogin.helper.CULoginUiConfig;
 import com.netease.nis.quicklogin.listener.QuickLoginPreMobileListener;
 import com.netease.nis.quicklogin.listener.QuickLoginTokenListener;
 import com.netease.nis.quicklogin.utils.IConstants;
+import com.zjrb.core.db.SPHelper;
 import com.zjrb.passport.Entity.AuthInfo;
 import com.zjrb.passport.ZbPassport;
 import com.zjrb.passport.listener.ZbAuthListener;
 
 import java.lang.ref.SoftReference;
 
+import cn.com.zjol.biz.core.UserBiz;
 import cn.com.zjol.biz.core.model.ZBLoginBean;
+import cn.com.zjol.biz.core.nav.Nav;
 import cn.com.zjol.biz.core.network.compatible.APICallBack;
 import cn.com.zjol.biz.core.network.task.LoginValidateTask;
+import cn.com.zjol.biz.core.utils.LoginHelper;
+import cn.com.zjol.biz.core.utils.RouteManager;
+import cn.com.zjol.biz.core.utils.ZBUtils;
 import cn.com.zjol.quick_login.callback.OnLoginCallback;
 import cn.com.zjol.quick_login.callback.OnPrefetchNumberCallback;
+import cn.com.zjol.quick_login.network.APIManager;
 
 /**
  * one click login
@@ -143,7 +150,7 @@ public final class OneClickLogin {
                     @Override
                     public void run() {
                         if (mOnLoginCallback != null) {
-                            mOnLoginCallback.onError(error);
+                            mOnLoginCallback.onError(-1, error);
                         }
                     }
                 });
@@ -163,7 +170,7 @@ public final class OneClickLogin {
             public void onSuccess(AuthInfo info) {
                 if (info == null) {
                     if (mOnLoginCallback != null) {
-                        mOnLoginCallback.onError("AuthInfo null");
+                        mOnLoginCallback.onError(-1, "AuthInfo is null");
                     }
                     return;
                 }
@@ -171,15 +178,31 @@ public final class OneClickLogin {
                 new LoginValidateTask(new APICallBack<ZBLoginBean>() {
                     @Override
                     public void onSuccess(ZBLoginBean data) {
-                        if (mOnLoginCallback != null) {
-                            mOnLoginCallback.onSuccess();
+                        if (data != null) {
+                            if (data.getAccount() != null) {
+                                UserBiz.get().setZBLoginBean(data);
+                                LoginHelper.get().setResult(true);
+                                SPHelper.get().put("isPhone", true).put("last_login", data.getAccount().getMobile()).commit();
+                                //新用户首次登录跳转积分任务页面
+                                if (data.getAccount().isFirst_login()) {
+                                    Nav.with(mContext).toPath(RouteManager.ZB_SCORE);
+                                }
+                                ZBUtils.showPointDialog(data);
+                                if (mOnLoginCallback != null) {
+                                    mOnLoginCallback.onSuccess();
+                                }
+                            }
+                        } else {
+                            if (mOnLoginCallback != null) {
+                                mOnLoginCallback.onError(-1, "ZBLoginBean is null");
+                            }
                         }
                     }
 
                     @Override
                     public void onError(String errMsg, int errCode) {
                         if (mOnLoginCallback != null) {
-                            mOnLoginCallback.onError(errMsg);
+                            mOnLoginCallback.onError(errCode, errMsg);
                         }
                     }
                 }).exe(code, code, "one_click", code);
@@ -188,7 +211,7 @@ public final class OneClickLogin {
             @Override
             public void onFailure(int errorCode, String errorMessage) {
                 if (mOnLoginCallback != null) {
-                    mOnLoginCallback.onError(errorMessage);
+                    mOnLoginCallback.onError(errorCode, errorMessage);
                 }
             }
         });
@@ -202,7 +225,7 @@ public final class OneClickLogin {
      */
     private static CMLoginUiConfig createCMLoginUI() {
         return new CMLoginUiConfig()
-                .setClauseText("登录即同意", "天目新闻隐私政策", "https://www.jianshu.com/p/8b89546d2c48", null, null, "并使用本机号码登录")
+                .setClauseText("登录即同意", "天目新闻用户协议", APIManager.getTianmuAgreementUrl(), null, null, null)
                 ;
     }
 
