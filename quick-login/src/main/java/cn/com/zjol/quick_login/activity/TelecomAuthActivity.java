@@ -19,6 +19,7 @@ import cn.com.zjol.quick_login.R;
 import cn.com.zjol.quick_login.common.Action;
 import cn.com.zjol.quick_login.common.QuickAuthKey;
 import cn.com.zjol.quick_login.network.APIManager;
+import cn.daily.android.statusbar.DarkStatusBar;
 
 /**
  * telecom auth activity
@@ -35,6 +36,7 @@ public class TelecomAuthActivity extends DailyActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_telecom_auth);
+        DarkStatusBar.get().fitDark(this);
         initArgs();
         initViews();
         bind();
