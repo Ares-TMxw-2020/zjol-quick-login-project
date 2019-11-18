@@ -4,21 +4,58 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
     tools:context=".activity.TelecomAuthActivity">
+
+    <RelativeLayout
+        android:id="@+id/container_top_bar"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/toolbar_normal_height"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/iv_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="15dp"
+            android:background="?attr/actionBarItemBackground"
+            android:onClick="onClick"
+            android:src="@mipmap/ic_top_bar_back_dark" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:fontFamily="@font/fzzcysk_zbjt"
+            android:text="@string/quick_auth_title"
+            android:textColor="@color/_222222"
+            android:textSize="@dimen/ts_18sp" />
+    </RelativeLayout>
+
+    <ImageView
+        android:id="@+id/iv_telecom_logo"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:layout_marginTop="36dp"
+        android:src="@mipmap/ic_login_tianyi_logo"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/container_top_bar" />
 
     <TextView
         android:id="@+id/tv_mask_number"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
         android:fontFamily="@font/din_medium"
         android:textColor="@color/_222222"
         android:textSize="@dimen/ts_18sp"
-        app:layout_constraintBottom_toTopOf="@+id/tv_tianyi_service"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.3"
-        app:layout_constraintVertical_chainStyle="packed"
+        app:layout_constraintTop_toBottomOf="@+id/iv_telecom_logo"
         tools:text="138****9362" />
 
     <TextView
@@ -26,10 +63,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="44dp"
-        android:drawableStart="@mipmap/ic_login_tianyi_logo"
-        android:drawablePadding="5dp"
+        android:fontFamily="@font/fzbiaoysk_zbjt"
         android:text="@string/quick_auth_tianyi_service"
-        app:layout_constraintBottom_toTopOf="@id/btn_telecom_login"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_mask_number" />
@@ -40,11 +75,11 @@
         android:layout_height="44dp"
         android:layout_marginTop="30dp"
         android:background="@drawable/user_btn_common"
+        android:fontFamily="@font/fzbiaoysk_zbjt"
         android:onClick="onClick"
         android:text="@string/quick_auth_login"
         android:textColor="@color/white"
         android:textSize="@dimen/ts_16sp"
-        app:layout_constraintBottom_toTopOf="@+id/tv_switch_account"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_tianyi_service" />
@@ -54,11 +89,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="56dp"
+        android:fontFamily="@font/fzbiaoysk_zbjt"
         android:onClick="onClick"
         android:text="@string/quick_auth_switch_account"
         android:textColor="@color/color_40a8c0"
         android:textSize="@dimen/ts_16sp"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btn_telecom_login" />
@@ -69,6 +104,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="18dp"
+        android:fontFamily="@font/fzbiaoysk_zbjt"
         android:textColor="@color/_666666"
         android:textSize="@dimen/ts_12sp"
         app:layout_constraintBottom_toBottomOf="parent"

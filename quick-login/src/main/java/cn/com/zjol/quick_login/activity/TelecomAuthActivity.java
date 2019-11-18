@@ -11,12 +11,10 @@ import android.text.TextPaint;
 import android.text.method.LinkMovementMethod;
 import android.text.style.ClickableSpan;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.TextView;
 
 import cn.com.zjol.biz.core.DailyActivity;
 import cn.com.zjol.biz.core.nav.Nav;
-import cn.com.zjol.biz.core.ui.toolsbar.BIZTopBarFactory;
 import cn.com.zjol.quick_login.R;
 import cn.com.zjol.quick_login.common.Action;
 import cn.com.zjol.quick_login.common.QuickAuthKey;
@@ -95,18 +93,19 @@ public class TelecomAuthActivity extends DailyActivity {
     }
 
     @Override
-    protected View onCreateTopBar(ViewGroup view) {
-        return BIZTopBarFactory.createDefaultNoTitle(view, this).getView();
+    public boolean isShowTopBar() {
+        return false;
     }
 
     public void onClick(View view) {
         int id = view.getId();
         if (id == R.id.btn_telecom_login) {
             LocalBroadcastManager.getInstance(this).sendBroadcast(new Intent(Action.AUTH_TELECOM_LOGIN));
+            setResult(RESULT_OK);
         } else if (id == R.id.tv_switch_account) {
             LocalBroadcastManager.getInstance(this).sendBroadcast(new Intent(Action.AUTH_TELECOM_SWITCH));
+            setResult(RESULT_OK);
         }
-        setResult(RESULT_OK);
         finish();
     }
 }

@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/oauth_content"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical">
+
+    <!--必须放在第一个-->
+    <com.sdk.mobile.manager.login.views.CucWebView
+        android:id="@+id/cuc_webview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone" />
+    <!--必须放在第一个-->
+
+    <LinearLayout
+        android:id="@+id/navigation_bar"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/oauth_back"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_marginStart="7dp"
+            android:background="@mipmap/left" />
+
+        <TextView
+            android:id="@+id/oauth_title"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:fontFamily="@font/fzzcysk_zbjt"
+            android:gravity="center"
+            android:text="@string/quick_auth_title"
+            android:textColor="@color/_222222"
+            android:textSize="18sp" />
+
+        <TextView
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:gravity="center|start" />
+    </LinearLayout>
+    <!--状态栏-->
+    <TextView
+        android:id="@+id/navigation_bar_line"
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:layout_marginTop="1px"
+        android:background="@color/gray"
+        android:visibility="gone" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center_horizontal"
+        android:orientation="vertical">
+
+        <ImageView
+            android:id="@+id/oauth_logo"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:layout_marginTop="36dp"
+            android:src="@mipmap/ic_login_unicom_logo" />
+
+        <TextView
+            android:id="@+id/app_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:visibility="gone" />
+
+        <EditText
+            android:id="@+id/oauth_mobile_et"
+            android:layout_width="288dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:background="@null"
+            android:enabled="false"
+            android:fontFamily="@font/din_medium"
+            android:gravity="center"
+            android:inputType="number"
+            android:maxLength="11"
+            android:textColor="@color/_222222"
+            android:textCursorDrawable="@drawable/oauth_cursor"
+            android:textSize="18sp"
+            tools:text="138****9362" />
+
+        <TextView
+            android:id="@+id/brand"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="44dp"
+            android:fontFamily="@font/fzbiaoysk_zbjt"
+            android:text="@string/quick_auth_unicom_service"
+            android:textSize="16sp" />
+
+
+        <Button
+            android:id="@+id/oauth_login"
+            android:layout_width="315dp"
+            android:layout_height="44dp"
+            android:layout_gravity="center"
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="30dp"
+            android:background="@drawable/user_btn_common"
+            android:fontFamily="@font/fzbiaoysk_zbjt"
+            android:text="@string/quick_auth_login"
+            android:textColor="@color/white"
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/other_login"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/fzbiaoysk_zbjt"
+            android:paddingTop="56dp"
+            android:text="@string/quick_auth_switch_account"
+            android:textColor="@color/color_40a8c0"
+            android:textSize="@dimen/ts_16sp" />
+
+        <!--建议自定义区-->
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="2" />
+        <!--建议自定义区-->
+        <LinearLayout
+            android:id="@+id/protocol"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:paddingBottom="20dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center">
+
+                <CheckBox
+                    android:id="@+id/is_agree"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:visibility="gone" />
+
+                <TextView
+                    android:id="@+id/login_before_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/fzbiaoysk_zbjt"
+                    android:text="@string/hint_txt"
+                    android:textSize="12sp" />
+
+                <TextView
+                    android:id="@+id/service_and_privacy"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/fzbiaoysk_zbjt"
+                    android:text="@string/quick_auth_unicom_items"
+                    android:textColor="@color/color_d12324"
+                    android:textSize="12sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/fzbiaoysk_zbjt"
+                    android:text="@string/quick_auth_and"
+                    android:textSize="12sp" />
+
+                <TextView
+                    android:id="@+id/tv_tianmu_service_and_privacy"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/fzbiaoysk_zbjt"
+                    android:text="@string/quick_auth_tianmu_items"
+                    android:textColor="@color/color_d12324"
+                    android:textSize="12sp" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/authorize_app"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="12sp"
+                android:visibility="gone" />
+        </LinearLayout>
+    </LinearLayout>
+
+
+</LinearLayout>

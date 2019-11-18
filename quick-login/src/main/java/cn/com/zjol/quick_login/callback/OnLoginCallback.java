@@ -8,4 +8,6 @@ public interface OnLoginCallback {
     void onSuccess();
 
     void onError(int errorCode, String error);
+
+    void onOtherLogin();
 }

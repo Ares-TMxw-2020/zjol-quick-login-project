@@ -72,6 +72,7 @@ public class MainActivity extends DailyActivity {
                 switch (operatorType) {
                     case TYPE_CM:
                     case TYPE_CU:
+                        LoadingDialogUtils.newInstance().dismissLoadingDialogNoText();
                         onePass();
                         break;
                     case TYPE_CT:
@@ -103,6 +104,11 @@ public class MainActivity extends DailyActivity {
             public void onError(int errorCode, String error) {
                 LoadingDialogUtils.newInstance().dismissLoadingDialog(false, "登录失败");
                 finishDelay();
+            }
+
+            @Override
+            public void onOtherLogin() {
+                switchLoginWay();
             }
         });
     }

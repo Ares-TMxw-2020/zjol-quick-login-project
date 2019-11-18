@@ -1,6 +1,12 @@
 <resources>
     <string name="app_name">quick-login</string>
-    <string name="quick_auth_tianyi_service">天翼账号提供认证服务</string>
+    <string name="quick_auth_title">免密登录</string>
     <string name="quick_auth_login">本机号码登录</string>
     <string name="quick_auth_switch_account">切换账号</string>
+    <string name="quick_auth_tianmu_items">天目新闻用户协议</string>
+    <string name="quick_auth_and">与</string>
+
+    <string name="quick_auth_unicom_service">中国联通提供认证服务</string>
+    <string name="quick_auth_unicom_items">中国联通认证服务条款</string>
+    <string name="quick_auth_tianyi_service">天翼账号提供认证服务</string>
 </resources>

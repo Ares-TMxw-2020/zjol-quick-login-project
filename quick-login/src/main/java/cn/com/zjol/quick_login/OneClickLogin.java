@@ -11,6 +11,7 @@ import com.netease.nis.quicklogin.listener.QuickLoginPreMobileListener;
 import com.netease.nis.quicklogin.listener.QuickLoginTokenListener;
 import com.netease.nis.quicklogin.utils.IConstants;
 import com.zjrb.core.db.SPHelper;
+import com.zjrb.core.utils.JsonUtils;
 import com.zjrb.passport.Entity.AuthInfo;
 import com.zjrb.passport.ZbPassport;
 import com.zjrb.passport.listener.ZbAuthListener;
@@ -27,7 +28,9 @@ import cn.com.zjol.biz.core.utils.RouteManager;
 import cn.com.zjol.biz.core.utils.ZBUtils;
 import cn.com.zjol.quick_login.callback.OnLoginCallback;
 import cn.com.zjol.quick_login.callback.OnPrefetchNumberCallback;
+import cn.com.zjol.quick_login.common.ErrorCode;
 import cn.com.zjol.quick_login.config.UIConfig;
+import cn.com.zjol.quick_login.entity.ErrorEntity;
 
 /**
  * one click login
@@ -147,8 +150,15 @@ public final class OneClickLogin {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        if (mOnLoginCallback != null) {
-                            mOnLoginCallback.onError(-1, error);
+                        ErrorEntity entity = JsonUtils.parseObject(error, ErrorEntity.class);
+                        if (entity != null && ErrorCode.OTHER_LOGIN.equals(entity.resultCode)) {
+                            if (mOnLoginCallback != null) {
+                                mOnLoginCallback.onOtherLogin();
+                            }
+                        } else {
+                            if (mOnLoginCallback != null) {
+                                mOnLoginCallback.onError(-1, error);
+                            }
                         }
                     }
                 });
