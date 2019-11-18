@@ -163,6 +163,18 @@ public final class OneClickLogin {
                     }
                 });
             }
+
+            @Override
+            public void onCancelGetToken() {
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        if (mOnLoginCallback != null) {
+                            mOnLoginCallback.onError(-1, "onCancelGetToken");
+                        }
+                    }
+                });
+            }
         });
     }
 
