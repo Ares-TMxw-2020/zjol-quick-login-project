@@ -152,7 +152,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/fzbiaoysk_zbjt"
-                    android:text="@string/hint_txt"
+                    android:text="@string/quick_auth_protocal_before"
                     android:textSize="12sp" />
 
                 <TextView

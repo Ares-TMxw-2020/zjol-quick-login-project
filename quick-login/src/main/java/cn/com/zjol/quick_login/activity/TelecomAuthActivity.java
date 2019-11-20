@@ -51,9 +51,9 @@ public class TelecomAuthActivity extends DailyActivity {
 
     private Spannable buildAgreementSpannable() {
         SpannableStringBuilder builder = new SpannableStringBuilder();
-        builder.append("登录即同意");
+        builder.append("我已阅读并同意");
         int start = builder.length();
-        builder.append("天翼账号服务协议");
+        builder.append("天翼帐号服务协议");
         int end = builder.length();
         builder.setSpan(new ClickableSpan() {
             @Override
