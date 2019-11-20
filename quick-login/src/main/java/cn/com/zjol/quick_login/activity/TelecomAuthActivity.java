@@ -11,7 +11,9 @@ import android.text.TextPaint;
 import android.text.method.LinkMovementMethod;
 import android.text.style.ClickableSpan;
 import android.view.View;
+import android.widget.CheckBox;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import cn.com.zjol.biz.core.DailyActivity;
 import cn.com.zjol.biz.core.nav.Nav;
@@ -28,7 +30,7 @@ import cn.daily.android.statusbar.DarkStatusBar;
 public class TelecomAuthActivity extends DailyActivity {
 
     private TextView mTvMaskNumber;
-    private TextView mTvAgreement;
+    private CheckBox mCheckboxAgreement;
 
     private String mMaskNumber;
 
@@ -44,7 +46,7 @@ public class TelecomAuthActivity extends DailyActivity {
 
     private void bind() {
         mTvMaskNumber.setText(mMaskNumber);
-        mTvAgreement.setText(buildAgreementSpannable());
+        mCheckboxAgreement.setText(buildAgreementSpannable());
     }
 
     private Spannable buildAgreementSpannable() {
@@ -90,8 +92,8 @@ public class TelecomAuthActivity extends DailyActivity {
 
     private void initViews() {
         mTvMaskNumber = (TextView) findViewById(R.id.tv_mask_number);
-        mTvAgreement = (TextView) findViewById(R.id.tv_agreement);
-        mTvAgreement.setMovementMethod(LinkMovementMethod.getInstance());
+        mCheckboxAgreement = (CheckBox) findViewById(R.id.checkbox_agreement);
+        mCheckboxAgreement.setMovementMethod(LinkMovementMethod.getInstance());
     }
 
     @Override
@@ -102,6 +104,10 @@ public class TelecomAuthActivity extends DailyActivity {
     public void onClick(View view) {
         int id = view.getId();
         if (id == R.id.btn_telecom_login) {
+            if (!mCheckboxAgreement.isChecked()) {
+                Toast.makeText(this, "请同意服务条款", Toast.LENGTH_SHORT).show();
+                return;
+            }
             LocalBroadcastManager.getInstance(this).sendBroadcast(new Intent(Action.AUTH_TELECOM_LOGIN));
             setResult(RESULT_OK);
         } else if (id == R.id.tv_switch_account) {

@@ -72,7 +72,6 @@ public class MainActivity extends DailyActivity {
                 switch (operatorType) {
                     case TYPE_CM:
                     case TYPE_CU:
-                        LoadingDialogUtils.newInstance().dismissLoadingDialogNoText();
                         onePass();
                         break;
                     case TYPE_CT:
