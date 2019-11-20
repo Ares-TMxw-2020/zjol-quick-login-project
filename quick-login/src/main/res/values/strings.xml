@@ -3,7 +3,7 @@
     <string name="quick_auth_title">一键登录</string>
     <string name="quick_auth_login">本机号码登录</string>
     <string name="quick_auth_switch_account">切换帐号</string>
-    <string name="quick_auth_protocal_before">我已阅读并同意</string>
+    <string name="quick_auth_protocal_before">登录即同意</string>
     <string name="quick_auth_tianmu_items">天目新闻用户协议</string>
     <string name="quick_auth_and">与</string>
 

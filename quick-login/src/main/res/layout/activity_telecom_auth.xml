@@ -92,22 +92,17 @@
         app:layout_constraintTop_toBottomOf="@+id/btn_telecom_login" />
 
 
-    <CheckBox
-        android:id="@+id/checkbox_agreement"
+    <TextView
+        android:id="@+id/tv_agreement"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="18dp"
-        android:background="@color/color_transparent"
-        android:button="@drawable/quick_login_auth_checkbox"
-        android:checked="true"
         android:fontFamily="@font/fzbiaoysk_zbjt"
-        android:paddingStart="4dp"
-        android:paddingEnd="0dp"
         android:textColor="@color/_666666"
         android:textSize="@dimen/ts_12sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        tools:text="我已阅读并同意天翼帐号服务协议与天目新闻用户协议" />
+        tools:text="登录即同意天翼帐号服务协议与天目新闻用户协议" />
 
 </android.support.constraint.ConstraintLayout>

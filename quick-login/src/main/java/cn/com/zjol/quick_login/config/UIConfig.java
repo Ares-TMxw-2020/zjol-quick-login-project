@@ -5,6 +5,7 @@ import android.support.v4.content.ContextCompat;
 import android.support.v4.content.LocalBroadcastManager;
 import android.view.View;
 
+import com.cmic.sso.sdk.AuthThemeConfig;
 import com.netease.nis.quicklogin.helper.CMLoginUiConfig;
 import com.netease.nis.quicklogin.helper.CULoginUiConfig;
 import com.sdk.base.api.OnCustomViewListener;
@@ -27,15 +28,39 @@ public class UIConfig {
      * @return custom login ui
      */
     public static CMLoginUiConfig createCMLoginUI() {
-        return new CMLoginUiConfig()
-                .setNavigationBar(getColor(R.color.color_f5f5f5), "一键登录", getColor(R.color._222222), "@mipmap/ic_top_bar_back_dark", false)
-                .setLogo(null, 0, 0, true, 0, 0)
-                .setMobileMaskNumber(getColor(R.color._222222), 18, 130, 0)
-                .setSlogan(getColor(R.color._666666), 195, 0)
-                .setLoginButton(315, 44, "本机号码登录", getColor(R.color.white), "@drawable/user_btn_common", 244, 0)
-                .setSwitchAccount(getColor(R.color.color_40a8c0), false, 344, 0)
-                .setClause(10, getColor(R.color._666666), getColor(R.color.color_d12324), false, "@mipmap/quick_login_checkbox_checked", "@mipmap/quick_login_checkbox_uncheck", 10, 10, 0, 20, true)
-                .setClauseText("我已阅读并同意", "天目新闻用户协议", APIManager.getTianmuAgreementUrl(), null, null, "");
+        AuthThemeConfig config = new AuthThemeConfig.Builder()
+                //顶部导航栏
+                .setAuthNavTransparent(false)
+                .setNavColor(getColor(R.color.color_f5f5f5))
+                .setNavText("一键登录")
+                .setNavTextColor(getColor(R.color._222222))
+                .setNavReturnImgPath("@mipmap/ic_top_bar_back_dark")
+                //去除logo
+                .setLogoHidden(true)
+                //手机掩码
+                .setNumberColor(getColor(R.color._222222))
+                .setNumberSize(18)
+                .setNumFieldOffsetY(130)
+                //slogan
+                .setSloganText(16, getColor(R.color._666666))
+                .setSloganOffsetY(195)
+                //登录按钮
+                .setLogBtnText("本机号码登录", getColor(R.color.white), 16)
+                .setLogBtnImgPath("@drawable/user_btn_common")
+                .setLogoWidthDip(315)
+                .setLogoHeightDip(44)
+                .setLogBtnOffsetY(244)
+                //切换帐号
+                .setSwitchAccTex("切换帐号", getColor(R.color.color_40a8c0), 16)
+                .setSwitchOffsetY(344)
+                //用户协议
+                .setPrivacyState(true)
+                .setPrivacyOffsetY_B(20)
+                .setPrivacyText(10, getColor(R.color._666666), getColor(R.color.color_d12324), false)
+                .privacyAlignment("登录即同意", "天目新闻用户协议", APIManager.getTianmuAgreementUrl(), "", "", "")
+                .setCheckBoxImgPath("umcsdk_check_image", "umcsdk_uncheck_image", 0, 0)
+                .build();
+        return new CMLoginUiConfig().setAuthThemeConfig(config);
     }
 
     /**
@@ -47,7 +72,6 @@ public class UIConfig {
     public static CULoginUiConfig createCULoginUI() {
         return new CULoginUiConfig()
                 .setProtocol(0, getColor(R.color.color_d12324), 12, "tv_tianmu_service_and_privacy", "天目新闻用户协议", APIManager.getTianmuAgreementUrl(), null, null, null)
-                .setShowProtocolBox(true)
                 .setLoginButton(dip2px(315), dip2px(44), dip2px(30), "本机号码登录", R.drawable.quick_login_btn_unicom, R.drawable.quick_login_btn_unicom)
                 .setOtherLoginListener(new OnCustomViewListener() {
                     @Override
@@ -62,7 +86,7 @@ public class UIConfig {
         return ContextCompat.getColor(UIUtils.getContext(), resId);
     }
 
-    public static int dip2px(float dip) {
+    private static int dip2px(float dip) {
         final float scale = UIUtils.getContext().getResources().getDisplayMetrics().density;
         return (int) (dip * scale + 0.5f);
     }
