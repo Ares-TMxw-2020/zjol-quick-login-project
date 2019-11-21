@@ -1,11 +1,17 @@
 package cn.com.zjol.quick_login;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
+import android.graphics.Typeface;
 import android.os.Handler;
 import android.os.Looper;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.TextView;
 
+import com.cmic.sso.sdk.activity.LoginAuthActivity;
 import com.netease.nis.quicklogin.QuickLogin;
 import com.netease.nis.quicklogin.listener.QuickLoginPreMobileListener;
 import com.netease.nis.quicklogin.listener.QuickLoginTokenListener;
@@ -17,6 +23,7 @@ import com.zjrb.passport.ZbPassport;
 import com.zjrb.passport.listener.ZbAuthListener;
 
 import java.lang.ref.SoftReference;
+import java.util.Stack;
 
 import cn.com.zjol.biz.core.UserBiz;
 import cn.com.zjol.biz.core.model.ZBLoginBean;
@@ -239,5 +246,36 @@ public final class OneClickLogin {
 
     private static void runOnUiThread(Runnable runnable) {
         mHandler.post(runnable);
+    }
+
+    /**
+     * fit the typeface for all derived views from TextView in china mobile auth activity.
+     *
+     * @param activity activity
+     * @param typeface typeface
+     */
+    public static void fitChinaMobileTypeface(Activity activity, Typeface typeface) {
+        if (activity != null && typeface != null) {
+            if (activity instanceof LoginAuthActivity) {
+                Stack<View> stack = new Stack<>();
+                View decorView = activity.getWindow().getDecorView();
+                Boolean tag = (Boolean) decorView.getTag(R.id.tag_decor_data);
+                if (tag == Boolean.TRUE) return;
+                decorView.setTag(R.id.tag_decor_data, true);
+                stack.add(decorView);
+                while (!stack.isEmpty()) { // 深度优先遍历
+                    View pop = stack.pop();
+                    if (pop instanceof TextView) {
+                        ((TextView) pop).setTypeface(typeface);
+                    }
+                    if (pop instanceof ViewGroup) {
+                        for (int i = ((ViewGroup) pop).getChildCount() - 1; i >= 0; i--) {
+                            View child = ((ViewGroup) pop).getChildAt(i);
+                            stack.add(child);
+                        }
+                    }
+                }
+            }
+        }
     }
 }

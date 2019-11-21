@@ -2,4 +2,6 @@
 <resources>
     <item name="protocal_1st" type="id" />
     <item name="protocal_2nd" type="id" />
+
+    <item name="tag_decor_data" type="id" />
 </resources>

@@ -30,7 +30,7 @@
             android:layout_marginStart="7dp"
             android:background="@mipmap/left" />
 
-        <TextView
+        <android.support.v7.widget.AppCompatTextView
             android:id="@+id/oauth_title"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -62,14 +62,14 @@
         android:gravity="center_horizontal"
         android:orientation="vertical">
 
-        <TextView
+        <android.support.v7.widget.AppCompatTextView
             android:id="@+id/app_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:visibility="gone" />
 
-        <EditText
+        <android.support.v7.widget.AppCompatEditText
             android:id="@+id/oauth_mobile_et"
             android:layout_width="288dp"
             android:layout_height="wrap_content"
@@ -85,7 +85,7 @@
             android:textSize="18sp"
             tools:text="138****9362" />
 
-        <TextView
+        <android.support.v7.widget.AppCompatTextView
             android:id="@+id/brand"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -94,7 +94,7 @@
             android:text="@string/quick_auth_unicom_service"
             android:textSize="16sp" />
 
-        <Button
+        <android.support.v7.widget.AppCompatButton
             android:id="@+id/oauth_login"
             android:layout_width="315dp"
             android:layout_height="44dp"
@@ -104,11 +104,12 @@
             android:layout_marginEnd="30dp"
             android:background="@drawable/quick_login_btn_unicom"
             android:fontFamily="@font/fzbiaoysk_zbjt"
+            android:gravity="center"
             android:text="@string/quick_auth_login"
             android:textColor="@color/white"
             android:textSize="18sp" />
 
-        <TextView
+        <android.support.v7.widget.AppCompatTextView
             android:id="@+id/other_login"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -147,7 +148,7 @@
                     android:checked="true"
                     android:visibility="gone" />
 
-                <TextView
+                <android.support.v7.widget.AppCompatTextView
                     android:id="@+id/login_before_text"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -155,7 +156,7 @@
                     android:text="@string/quick_auth_protocal_before"
                     android:textSize="12sp" />
 
-                <TextView
+                <android.support.v7.widget.AppCompatTextView
                     android:id="@+id/service_and_privacy"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -164,14 +165,14 @@
                     android:textColor="@color/color_d12324"
                     android:textSize="12sp" />
 
-                <TextView
+                <android.support.v7.widget.AppCompatTextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/fzbiaoysk_zbjt"
                     android:text="@string/quick_auth_and"
                     android:textSize="12sp" />
 
-                <TextView
+                <android.support.v7.widget.AppCompatTextView
                     android:id="@+id/tv_tianmu_service_and_privacy"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -181,7 +182,7 @@
                     android:textSize="12sp" />
             </LinearLayout>
 
-            <TextView
+            <android.support.v7.widget.AppCompatTextView
                 android:id="@+id/authorize_app"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

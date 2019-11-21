@@ -1,6 +1,8 @@
 package cn.com.zjol.quick_login;
 
+import android.app.Activity;
 import android.app.Application;
+import android.support.v4.content.res.ResourcesCompat;
 
 import com.aliya.uimode.UiModeManager;
 import com.zjrb.core.utils.AppUtils;
@@ -10,6 +12,7 @@ import com.zjrb.passport.ZbPassport;
 import com.zjrb.passport.constant.ZbConstants;
 
 import cn.com.zjol.biz.core.network.DailyNetworkManager;
+import cn.com.zjol.quick_login.common.AbsActivityLifecycleCallbacks;
 
 /**
  * QuickLoginApplication
@@ -27,6 +30,12 @@ public class QuickLoginApplication extends Application {
         DailyNetworkManager.init(this);
         initPassport();
         OneClickLogin.init(this, "ad356081117148588b7c2376333de0a5");
+        registerActivityLifecycleCallbacks(new AbsActivityLifecycleCallbacks() {
+            @Override
+            public void onActivityStarted(Activity activity) {
+                OneClickLogin.fitChinaMobileTypeface(activity, ResourcesCompat.getFont(activity, R.font.fzbiaoysk_zbjt));
+            }
+        });
     }
 
     /**
