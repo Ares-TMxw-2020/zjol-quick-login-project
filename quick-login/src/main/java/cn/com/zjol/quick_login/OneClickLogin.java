@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.cmic.sso.sdk.activity.LoginAuthActivity;
+import com.cmic.sso.sdk.auth.AuthnHelper;
 import com.netease.nis.quicklogin.QuickLogin;
 import com.netease.nis.quicklogin.listener.QuickLoginPreMobileListener;
 import com.netease.nis.quicklogin.listener.QuickLoginTokenListener;
@@ -123,6 +124,7 @@ public final class OneClickLogin {
                         }
                     }
                 });
+                AuthnHelper.getInstance(mContext).delScrip();
             }
 
             @Override
