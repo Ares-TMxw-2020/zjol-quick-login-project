@@ -92,6 +92,7 @@ public class TelecomAuthActivity extends DailyActivity {
         mTvMaskNumber = (TextView) findViewById(R.id.tv_mask_number);
         mTvAgreement = (TextView) findViewById(R.id.tv_agreement);
         mTvAgreement.setMovementMethod(LinkMovementMethod.getInstance());
+        mTvAgreement.setHighlightColor(getResources().getColor(R.color.color_transparent));
     }
 
     @Override
