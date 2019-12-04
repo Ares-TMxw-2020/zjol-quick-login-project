@@ -2,7 +2,6 @@ package cn.com.zjol.quick_login;
 
 import android.app.Activity;
 import android.app.Application;
-import android.support.v4.content.res.ResourcesCompat;
 
 import com.aliya.uimode.UiModeManager;
 import com.zjrb.core.utils.AppUtils;
@@ -33,7 +32,7 @@ public class QuickLoginApplication extends Application {
         registerActivityLifecycleCallbacks(new AbsActivityLifecycleCallbacks() {
             @Override
             public void onActivityStarted(Activity activity) {
-                OneClickLogin.fitChinaMobileTypeface(activity, ResourcesCompat.getFont(activity, R.font.fzbiaoysk_zbjt));
+                OneClickLogin.fitChinaMobileTypeface(activity, R.font.fzbiaoysk_zbjt);
             }
         });
     }

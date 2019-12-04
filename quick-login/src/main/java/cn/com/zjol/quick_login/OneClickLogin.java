@@ -7,6 +7,7 @@ import android.content.pm.PackageManager;
 import android.graphics.Typeface;
 import android.os.Handler;
 import android.os.Looper;
+import android.support.v4.content.res.ResourcesCompat;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
@@ -159,7 +160,12 @@ public final class OneClickLogin {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        ErrorEntity entity = JsonUtils.parseObject(error, ErrorEntity.class);
+                        ErrorEntity entity = null;
+                        try {
+                            entity = JsonUtils.parseObject(error, ErrorEntity.class);
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
                         if (entity != null && ErrorCode.OTHER_LOGIN.equals(entity.resultCode)) {
                             if (mOnLoginCallback != null) {
                                 mOnLoginCallback.onOtherLogin();
@@ -254,10 +260,10 @@ public final class OneClickLogin {
      * fit the typeface for all derived views from TextView in china mobile auth activity.
      *
      * @param activity activity
-     * @param typeface typeface
+     * @param fontId   fontId
      */
-    public static void fitChinaMobileTypeface(Activity activity, Typeface typeface) {
-        if (activity != null && typeface != null) {
+    public static void fitChinaMobileTypeface(Activity activity, int fontId) {
+        if (activity != null && fontId > 0) {
             if (activity instanceof LoginAuthActivity) {
                 Stack<View> stack = new Stack<>();
                 View decorView = activity.getWindow().getDecorView();
@@ -265,10 +271,11 @@ public final class OneClickLogin {
                 if (tag == Boolean.TRUE) return;
                 decorView.setTag(R.id.tag_decor_data, true);
                 stack.add(decorView);
+                Typeface font = ResourcesCompat.getFont(activity, fontId);
                 while (!stack.isEmpty()) { // 深度优先遍历
                     View pop = stack.pop();
                     if (pop instanceof TextView) {
-                        ((TextView) pop).setTypeface(typeface);
+                        ((TextView) pop).setTypeface(font);
                     }
                     if (pop instanceof ViewGroup) {
                         for (int i = ((ViewGroup) pop).getChildCount() - 1; i >= 0; i--) {
