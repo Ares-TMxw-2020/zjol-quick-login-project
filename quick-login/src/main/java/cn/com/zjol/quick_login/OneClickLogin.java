@@ -271,7 +271,12 @@ public final class OneClickLogin {
                 if (tag == Boolean.TRUE) return;
                 decorView.setTag(R.id.tag_decor_data, true);
                 stack.add(decorView);
-                Typeface font = ResourcesCompat.getFont(activity, fontId);
+                Typeface font;
+                try {
+                    font = ResourcesCompat.getFont(activity, fontId);
+                } catch (Exception e) {
+                    return;
+                }
                 while (!stack.isEmpty()) { // 深度优先遍历
                     View pop = stack.pop();
                     if (pop instanceof TextView) {
