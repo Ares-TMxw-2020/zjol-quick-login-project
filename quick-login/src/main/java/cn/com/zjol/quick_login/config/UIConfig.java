@@ -29,6 +29,8 @@ public class UIConfig {
      */
     public static CMLoginUiConfig createCMLoginUI() {
         AuthThemeConfig config = new AuthThemeConfig.Builder()
+                //状态栏颜色
+                .setStatusBar(getColor(R.color.color_f5f5f5), true)
                 //顶部导航栏
                 .setAuthNavTransparent(false)
                 .setNavColor(getColor(R.color.color_f5f5f5))
